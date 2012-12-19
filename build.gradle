@@ -2,9 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 repositories {
 	
-	maven {
-		url "http://maven.nwie.net/enterprise"
-	}
+	mavenCentral()
 }
 
 dependencies {
