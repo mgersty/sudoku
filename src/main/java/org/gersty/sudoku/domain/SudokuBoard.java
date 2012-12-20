@@ -30,6 +30,10 @@ public class SudokuBoard {
 		return this.board;
 	}
 
+	public void setBoard(Map<String, int[]> board){
+		this.board = board;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
