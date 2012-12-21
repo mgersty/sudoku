@@ -111,7 +111,6 @@ public class SudokuService{
 		
 		List<Integer> givenValues = new ArrayList<Integer>();
 
-		
 		Map<String, List<Integer>> possibilitySet = new Hashtable<String, List<Integer>>();
 		for(String[] cellValues: cells){ 
 			for(String cellValue: cellValues){
