@@ -295,7 +295,7 @@ public class SudokuServiceTest{
 		expectedPredefinedValues.add(intarray8);
 		expectedPredefinedValues.add(intarray9);
 		
-		List<int[]> actualArray=sudokuService.organizePredifinedValues(predefinedValues);
+		List<int[]> actualArray=sudokuService.convertInitialInputToArrayOfValues(predefinedValues);
 		
 		for(int i = 0; i<expectedPredefinedValues.size(); i++){
 			assertArrayEquals(expectedPredefinedValues.get(i), actualArray.get(i));

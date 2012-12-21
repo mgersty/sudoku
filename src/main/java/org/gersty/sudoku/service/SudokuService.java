@@ -41,18 +41,18 @@ public class SudokuService{
 		
 	}
 	
-	protected ArrayList<int[]> organizePredifinedValues(String predefinedValues){
+	protected ArrayList<int[]> convertInitialInputToArrayOfValues(String predefinedValues){
 		ArrayList<int[]> returnList = new ArrayList<int[]>();
 		
-		String[] initialCells = predefinedValues.split(",");
-		for(String value : initialCells){
-			String[] actualValues = value.split("\\|");
-			int[] myNewArray = new int[actualValues.length];
+		String[] rowsFromPredefinedString = predefinedValues.split(",");
+		for(String row : rowsFromPredefinedString){
+			String[] actualValuesFromRow = row.split("\\|");
+			int[] actualValues = new int[actualValuesFromRow.length];
 			
-			for(int i = 0; i<actualValues.length; i++){
-				myNewArray[i]=Integer.valueOf(actualValues[i]);
+			for(int i = 0; i<actualValuesFromRow.length; i++){
+				actualValues[i]=Integer.valueOf(actualValuesFromRow[i]);
 			}
-			returnList.add(myNewArray);
+			returnList.add(actualValues);
 				
 		}
 		return returnList;
@@ -62,21 +62,18 @@ public class SudokuService{
 
 	public Map<String, int[]> initializeBoard(String predefinedvalues) {
 		
-		List<int[]> initialInput = organizePredifinedValues(predefinedvalues);
-		
-		
+		List<int[]> rowsFromInitialInput = convertInitialInputToArrayOfValues(predefinedvalues);
 		
 		Map<String, int[]> boardToReturn = new Hashtable<String, int[]>();
 		
 		for(int i=0; i<alphaCoordinates.length; i++){
-			int[] myIntArray = initialInput.get(i);
-			for(int j =0; j<myIntArray.length; j++){
-				if(myIntArray[j]==0)
+			int[] rowFromInitialInput = rowsFromInitialInput.get(i);
+			for(int j =0; j<rowFromInitialInput.length; j++){
+				
+				if(rowFromInitialInput[j]==0)
 					boardToReturn.put(alphaCoordinates[i]+(j+1), numericCoordinates);
-				else{
-					int[] updatedIntArray = {myIntArray[j]};
-					boardToReturn.put(alphaCoordinates[i]+(j+1), updatedIntArray);
-				}
+				else
+					boardToReturn.put(alphaCoordinates[i]+(j+1), new int[]{rowFromInitialInput[j]});
 			}
 		}
 		return boardToReturn;
@@ -87,13 +84,13 @@ public class SudokuService{
 		
 		for(String alphaCoordinate : alphaCoordinates){
 			for(int numericCoordinate : numericCoordinates){
-				int[] myIntArray = boardToBeDisplayed.get(alphaCoordinate+numericCoordinate);
+				int[] possibilitiesForGivenValueInCell = boardToBeDisplayed.get(alphaCoordinate+numericCoordinate);
 				
-				if(myIntArray.length==1){
+				if(possibilitiesForGivenValueInCell.length==1){
 					if(numericCoordinate==1)
-						stringBuffer.append("|"+myIntArray[0]+"|");
+						stringBuffer.append("|"+possibilitiesForGivenValueInCell[0]+"|");
 					else
-						stringBuffer.append(myIntArray[0]+"|");
+						stringBuffer.append(possibilitiesForGivenValueInCell[0]+"|");
 				}
 				else{
 					if(numericCoordinate==1)
@@ -116,7 +113,7 @@ public class SudokuService{
 
 		
 		Map<String, List<Integer>> tempTable = new Hashtable<String, List<Integer>>();
-		for(String[] cellValues: cells){  //cell1= {"A1","A2","A3","B1","B2","B3","C1","C2","C3"};
+		for(String[] cellValues: cells){ 
 			for(String cellValue: cellValues){
 				if(actualBoard.get(cellValue).length==1)
 					givenValues.addAll(convertIntArrayToList(actualBoard.get(cellValue)));
