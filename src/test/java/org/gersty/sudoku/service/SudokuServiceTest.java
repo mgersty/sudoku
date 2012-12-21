@@ -3,7 +3,6 @@ package org.gersty.sudoku.service;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +17,12 @@ public class SudokuServiceTest{
 		sudokuService = new SudokuService();
 	}
 	
-	@Ignore
 	@Test
 	public void optimizeBoardWithValidPossibilitiesWillReturnBoardWithValidPossibilitiesOnly(){
 		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
 		
 		
-		expectedBoard.put("A1", new int[]{2,3,4,5});
+		expectedBoard.put("A1", new int[]{2,3,4,5,7});
 		expectedBoard.put("A2", new int[]{2,3,4,5,7});
 		expectedBoard.put("A3", new int[]{2,3,4,5,7});
 		
@@ -36,6 +34,8 @@ public class SudokuServiceTest{
 		expectedBoard.put("C2", new int[]{9});
 		expectedBoard.put("C3", new int[]{2,3,4,5,7});
 
+		
+		
 		expectedBoard.put("A4", new int[]{2});
 		expectedBoard.put("A5", new int[]{6});
 		expectedBoard.put("A6", new int[]{1,3,5,8,9});
@@ -65,7 +65,7 @@ public class SudokuServiceTest{
 		expectedBoard.put("D2", new int[]{2});
 		expectedBoard.put("D3", new int[]{1,3,6,7,9});
 		
-		expectedBoard.put("E1", new int[]{3,9});
+		expectedBoard.put("E1", new int[]{1,3,6,7,9});
 		expectedBoard.put("E2", new int[]{1,3,6,7,9});
 		expectedBoard.put("E3", new int[]{4});
 		
@@ -102,11 +102,11 @@ public class SudokuServiceTest{
 		
 		
 		
-		expectedBoard.put("G1", new int[]{2,5});
+		expectedBoard.put("G1", new int[]{1,2,5,6,8});
 		expectedBoard.put("G2", new int[]{1,2,5,6,8});
 		expectedBoard.put("G3", new int[]{9});
 		
-		expectedBoard.put("H1", new int[]{2,5});
+		expectedBoard.put("H1", new int[]{1,2,5,6,8});
 		expectedBoard.put("H2", new int[]{4});
 		expectedBoard.put("H3", new int[]{1,2,5,6,8});
 
@@ -140,11 +140,12 @@ public class SudokuServiceTest{
 		expectedBoard.put("I7", new int[]{1,2,5,8,9});
 		expectedBoard.put("I8", new int[]{1,2,5,8,9});
 		expectedBoard.put("I9", new int[]{1,2,5,8,9});
+
 		
 		
 		Map<String, int[]> actualBoard = sudokuService.initializeBoard(predefinedValues);
-		Map<String, int[]> optimizedBoard = sudokuService.optimizeBoardWithValidPossibilities(actualBoard);
-		assertBoardsAreEqual(expectedBoard, optimizedBoard);
+		sudokuService.optimizeBoardWithValidPossibilities(actualBoard);
+		assertBoardsAreEqual(expectedBoard, actualBoard);
 		
 
 	}
