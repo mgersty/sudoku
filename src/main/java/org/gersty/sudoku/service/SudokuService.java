@@ -217,4 +217,19 @@ public class SudokuService{
 		}
 		return true;
 	}
+
+	public boolean isBoardSolved(Map<String, int[]> solvedBoard) {
+		return false;
+//		for (Map.Entry<String, int[]> entry : solvedBoard.entrySet()){
+//			
+//			for(String alphaCoordinate : alphaCoordinates){
+//				for(int numericCoordinate : numericCoordinates){
+//					int[] listOfValues = solvedBoard.get(alphaCoordinate+numericCoordinate);
+//					if(listOfValues.length==1 && entry.getValue().length)
+//						if(listOfValues[0] == entry.getValue()[0])
+//				}
+//			
+//			
+//		}
+	}
 }

@@ -18,6 +18,105 @@ public class SudokuServiceTest{
 		sudokuService = new SudokuService();
 	}
 	
+	
+	@Test
+	public void isBoardSolvedRetrunsTrueIfPuzzleIsSolved(){
+		Map<String, int[]> solvedBoard = new Hashtable<String, int[]>();
+		
+		
+		solvedBoard.put("A1", new int[]{4});
+		solvedBoard.put("A2", new int[]{3});
+		solvedBoard.put("A3", new int[]{5});
+		solvedBoard.put("A4", new int[]{2});
+		solvedBoard.put("A5", new int[]{6});
+		solvedBoard.put("A6", new int[]{9});
+		solvedBoard.put("A7", new int[]{7});
+		solvedBoard.put("A8", new int[]{8});
+		solvedBoard.put("A9", new int[]{1});
+		
+
+		solvedBoard.put("B1", new int[]{6});
+		solvedBoard.put("B2", new int[]{8});
+		solvedBoard.put("B3", new int[]{2});
+		solvedBoard.put("B4", new int[]{5});
+		solvedBoard.put("B5", new int[]{7});
+		solvedBoard.put("B6", new int[]{1});
+		solvedBoard.put("B7", new int[]{4});
+		solvedBoard.put("B8", new int[]{9});
+		solvedBoard.put("B9", new int[]{3});
+		
+		solvedBoard.put("C1", new int[]{1});
+		solvedBoard.put("C2", new int[]{9});
+		solvedBoard.put("C3", new int[]{7});
+		solvedBoard.put("C4", new int[]{8});
+		solvedBoard.put("C5", new int[]{3});
+		solvedBoard.put("C6", new int[]{4});
+		solvedBoard.put("C7", new int[]{5});
+		solvedBoard.put("C8", new int[]{6});
+		solvedBoard.put("C9", new int[]{2});
+
+		solvedBoard.put("D1", new int[]{8});
+		solvedBoard.put("D2", new int[]{2});
+		solvedBoard.put("D3", new int[]{6});
+		solvedBoard.put("D4", new int[]{1});
+		solvedBoard.put("D5", new int[]{9});
+		solvedBoard.put("D6", new int[]{5});
+		solvedBoard.put("D7", new int[]{3});
+		solvedBoard.put("D8", new int[]{4});
+		solvedBoard.put("D9", new int[]{7});
+		
+		solvedBoard.put("E1", new int[]{3});
+		solvedBoard.put("E2", new int[]{7});
+		solvedBoard.put("E3", new int[]{4});
+		solvedBoard.put("E4", new int[]{6});
+		solvedBoard.put("E5", new int[]{8});
+		solvedBoard.put("E6", new int[]{2});
+		solvedBoard.put("E7", new int[]{9});
+		solvedBoard.put("E8", new int[]{1});
+		solvedBoard.put("E9", new int[]{5});
+		
+		solvedBoard.put("F1", new int[]{9});
+		solvedBoard.put("F2", new int[]{5});
+		solvedBoard.put("F3", new int[]{1});
+		solvedBoard.put("F4", new int[]{7});
+		solvedBoard.put("F5", new int[]{4});
+		solvedBoard.put("F6", new int[]{3});
+		solvedBoard.put("F7", new int[]{6});
+		solvedBoard.put("F8", new int[]{2});
+		solvedBoard.put("F9", new int[]{8});
+		
+		solvedBoard.put("G1", new int[]{5});
+		solvedBoard.put("G2", new int[]{1});
+		solvedBoard.put("G3", new int[]{9});
+		solvedBoard.put("G4", new int[]{3});
+		solvedBoard.put("G5", new int[]{2});
+		solvedBoard.put("G6", new int[]{6});
+		solvedBoard.put("G7", new int[]{8});
+		solvedBoard.put("G8", new int[]{7});
+		solvedBoard.put("G9", new int[]{4});
+		
+		solvedBoard.put("H1", new int[]{2});
+		solvedBoard.put("H2", new int[]{4});
+		solvedBoard.put("H3", new int[]{8});
+		solvedBoard.put("H4", new int[]{9});
+		solvedBoard.put("H5", new int[]{5});
+		solvedBoard.put("H6", new int[]{7});
+		solvedBoard.put("H7", new int[]{1});
+		solvedBoard.put("H8", new int[]{3});
+		solvedBoard.put("H9", new int[]{6});
+		
+		solvedBoard.put("I1", new int[]{7});
+		solvedBoard.put("I2", new int[]{6});
+		solvedBoard.put("I3", new int[]{3});
+		solvedBoard.put("I4", new int[]{4});
+		solvedBoard.put("I5", new int[]{1});
+		solvedBoard.put("I6", new int[]{8});
+		solvedBoard.put("I7", new int[]{2});
+		solvedBoard.put("I8", new int[]{5});
+		solvedBoard.put("I9", new int[]{9});
+		
+		assertTrue(sudokuService.isBoardSolved(solvedBoard));
+	}
 	@Test
 	public void isBoardCompleteReturnsTrueIfEachPossibilityForEachCellIsOne(){
 		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
