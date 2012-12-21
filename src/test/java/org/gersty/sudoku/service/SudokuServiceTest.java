@@ -17,6 +17,50 @@ public class SudokuServiceTest{
 	{
 		sudokuService = new SudokuService();
 	}
+	
+	@Test
+	public void isBoardCompleteReturnsTrueIfEachPossibilityForEachCellIsOne(){
+		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
+		
+		expectedBoard.put("A1", new int[]{1});
+		expectedBoard.put("A2", new int[]{1});
+		expectedBoard.put("A3", new int[]{1});
+		
+		
+		assertTrue(sudokuService.isBoardComplete(expectedBoard));
+
+	
+	}
+	
+	
+	@Test
+	public void isBoardCompleteReturnsFalseIfEachPossibilityForEachCellIsNotOne(){
+		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
+		
+		expectedBoard.put("A1", new int[]{1});
+		expectedBoard.put("A2", new int[]{1,2});
+		expectedBoard.put("A3", new int[]{1});
+		
+		
+		assertFalse(sudokuService.isBoardComplete(expectedBoard));
+
+	
+	}
+	
+	
+	@Test
+	public void checkIfPuzzleIsComplete(){
+		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
+		
+		expectedBoard.put("A1", new int[]{1});
+		expectedBoard.put("A2", new int[]{1});
+		expectedBoard.put("A3", new int[]{1});
+		
+		
+		assertTrue(sudokuService.isBoardComplete(expectedBoard));
+
+	
+	}
 
 	@Test
 	public void reducePossibilitiesByRowWillRemovePossibilitiesBasedOnDuplicateValuesInTheSameRow(){
@@ -149,10 +193,6 @@ public class SudokuServiceTest{
 		sudokuService.displayBoard(actualBoard);
 		
 		assertBoardsAreEqual(expectedBoard, actualBoard);
-		
-//		for (Map.Entry<String, int[]> entry : actualBoard.entrySet()){
-//			System.out.println(entry.getKey()+":  "+Arrays.toString(entry.getValue()));
-//		}
 	
 	}
 

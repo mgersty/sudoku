@@ -208,4 +208,13 @@ public class SudokuService{
 			givenValues.clear();
 		}
 	}
+
+	public boolean isBoardComplete(Map<String, int[]> expectedBoard) {
+		
+		for (Map.Entry<String, int[]> entry : expectedBoard.entrySet()){
+			if(entry.getValue().length!=1)
+				return false;
+		}
+		return true;
+	}
 }
