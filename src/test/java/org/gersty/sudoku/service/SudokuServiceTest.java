@@ -144,7 +144,7 @@ public class SudokuServiceTest{
 		
 		
 		Map<String, int[]> actualBoard = sudokuService.initializeBoard(predefinedValues);
-		sudokuService.optimizeBoardWithValidPossibilities(actualBoard);
+		sudokuService.reducePossibilitiesByCell(actualBoard);
 		assertBoardsAreEqual(expectedBoard, actualBoard);
 		
 

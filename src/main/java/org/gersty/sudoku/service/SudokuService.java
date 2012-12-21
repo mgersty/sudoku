@@ -107,33 +107,34 @@ public class SudokuService{
 		
 	}
 
-	public void optimizeBoardWithValidPossibilities(Map<String, int[]> actualBoard) {
+	public void reducePossibilitiesByCell(Map<String, int[]> actualBoard) {
 		
 		List<Integer> givenValues = new ArrayList<Integer>();
 
 		
-		Map<String, List<Integer>> tempTable = new Hashtable<String, List<Integer>>();
+		Map<String, List<Integer>> possibilitySet = new Hashtable<String, List<Integer>>();
 		for(String[] cellValues: cells){ 
 			for(String cellValue: cellValues){
 				if(actualBoard.get(cellValue).length==1)
 					givenValues.addAll(convertIntArrayToList(actualBoard.get(cellValue)));
 				else
-					tempTable.put(cellValue, convertMethod(actualBoard.get(cellValue)));
+					possibilitySet.put(cellValue, convertIntArrayToList(actualBoard.get(cellValue)));
 			}
 			
-			for (Map.Entry<String, List<Integer>> entry : tempTable.entrySet()){
+			for (Map.Entry<String, List<Integer>> entry : possibilitySet.entrySet()){
 				for(int value : givenValues){
-					List<Integer> setToBeOptimizedSet = entry.getValue();
-					if (setToBeOptimizedSet.contains(value)){
-						setToBeOptimizedSet.remove(setToBeOptimizedSet.indexOf(value));
-						actualBoard.put(entry.getKey(), convertToArray(setToBeOptimizedSet));
+					List<Integer> reducedPossibilitySet = entry.getValue();
+					if (reducedPossibilitySet.contains(value)){
+						reducedPossibilitySet.remove(reducedPossibilitySet.indexOf(value));
+						actualBoard.put(entry.getKey(), convertToArray(reducedPossibilitySet));
 					}
 				}
 			}
-			tempTable.clear();
+			possibilitySet.clear();
 			givenValues.clear();
 		}
 	}
+
 	private int[] convertToArray(List<Integer> arrayToBeConverted){
 		int[] returnIntArray =  new int[arrayToBeConverted.size()];
 		for(int i=0; i<arrayToBeConverted.size(); i++){
@@ -141,20 +142,7 @@ public class SudokuService{
 		}
 		return returnIntArray;
 	}
-
-	private List<Integer> convertMethod(int[] is) {
-		//TODO REFACTOR OPPORTUNITY
-		
-		List<Integer> values = new ArrayList<Integer>();
-		List<List<Integer>> returnList = new ArrayList<List<Integer>>();
-		
-		for(int i : is){
-			values.add(i);
-		}
-		returnList.add(values);
-		return values;
-	}
-
+	
 	private List<Integer> convertIntArrayToList(int[] is) {
 		List<Integer> returnList = new ArrayList<Integer>();
 		for(int i:is){
@@ -162,7 +150,4 @@ public class SudokuService{
 		}
 		return returnList;
 	}
-	
-
-	
 }
