@@ -3,6 +3,7 @@ package org.gersty.sudoku.service;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,280 @@ public class SudokuServiceTest{
 	{
 		sudokuService = new SudokuService();
 	}
+
+	@Test
+	public void reducePossibilitiesByRowWillRemovePossibilitiesBasedOnDuplicateValuesInTheSameRow(){
+		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
+		
+		expectedBoard.put("A1", new int[]{3,4,5});
+		expectedBoard.put("A2", new int[]{3});
+		expectedBoard.put("A3", new int[]{5});
+		
+		expectedBoard.put("B1", new int[]{6});
+		expectedBoard.put("B2", new int[]{8});
+		expectedBoard.put("B3", new int[]{2,5});
+
+		expectedBoard.put("C1", new int[]{1});
+		expectedBoard.put("C2", new int[]{9});
+		expectedBoard.put("C3", new int[]{2,7});
+
+		expectedBoard.put("A4", new int[]{2});
+		expectedBoard.put("A5", new int[]{6});
+		expectedBoard.put("A6", new int[]{5,9});
+
+		expectedBoard.put("B4", new int[]{5});
+		expectedBoard.put("B5", new int[]{7});
+		expectedBoard.put("B6", new int[]{1,5});
+		
+		expectedBoard.put("C4", new int[]{8});
+		expectedBoard.put("C5", new int[]{3,8});
+		expectedBoard.put("C6", new int[]{4});
+		
+		expectedBoard.put("A7", new int[]{7});
+		expectedBoard.put("A8", new int[]{8});
+		expectedBoard.put("A9", new int[]{1});
+		
+		expectedBoard.put("B7", new int[]{2,3,4});
+		expectedBoard.put("B8", new int[]{9});
+		expectedBoard.put("B9", new int[]{2,3});
+		
+		expectedBoard.put("C7", new int[]{5});
+		expectedBoard.put("C8", new int[]{6,8});
+		expectedBoard.put("C9", new int[]{2,3});
+
+		
+		expectedBoard.put("D1", new int[]{8});
+		expectedBoard.put("D2", new int[]{2});
+		expectedBoard.put("D3", new int[]{6,7});
+		
+		expectedBoard.put("E1", new int[]{3});
+		expectedBoard.put("E2", new int[]{1,3,7});
+		expectedBoard.put("E3", new int[]{4});
+		
+		expectedBoard.put("F1", new int[]{9});
+		expectedBoard.put("F2", new int[]{5});
+		expectedBoard.put("F3", new int[]{1,6,7});
+		
+		
+		
+		expectedBoard.put("D4", new int[]{1});
+		expectedBoard.put("D5", new int[]{9});
+		expectedBoard.put("D6", new int[]{5,7,9});
+		
+		expectedBoard.put("E4", new int[]{6});
+		expectedBoard.put("E5", new int[]{8});
+		expectedBoard.put("E6", new int[]{2});
+		
+		expectedBoard.put("F4", new int[]{4,7,9});
+		expectedBoard.put("F5", new int[]{4,9});
+		expectedBoard.put("F6", new int[]{3});
+		
+		
+		expectedBoard.put("D7", new int[]{3,6});
+		expectedBoard.put("D8", new int[]{4});
+		expectedBoard.put("D9", new int[]{3,5,7});
+		
+		expectedBoard.put("E7", new int[]{9});
+		expectedBoard.put("E8", new int[]{1,5});
+		expectedBoard.put("E9", new int[]{3,5,7});
+		
+		expectedBoard.put("F7", new int[]{1,6});
+		expectedBoard.put("F8", new int[]{2});
+		expectedBoard.put("F9", new int[]{8});
+		
+		
+		
+		expectedBoard.put("G1", new int[]{2,5});
+		expectedBoard.put("G2", new int[]{1,6});
+		expectedBoard.put("G3", new int[]{9});
+		
+		expectedBoard.put("H1", new int[]{2});
+		expectedBoard.put("H2", new int[]{4});
+		expectedBoard.put("H3", new int[]{1,2,8});
+
+		expectedBoard.put("I1", new int[]{7});
+		expectedBoard.put("I2", new int[]{6});
+		expectedBoard.put("I3", new int[]{3});
+		
+		
+		
+		expectedBoard.put("G4", new int[]{3});
+		expectedBoard.put("G5", new int[]{2});
+		expectedBoard.put("G6", new int[]{6});
+		
+		expectedBoard.put("H4", new int[]{7,9});
+		expectedBoard.put("H5", new int[]{5});
+		expectedBoard.put("H6", new int[]{7,9});
+		
+		expectedBoard.put("I4", new int[]{4,9});
+		expectedBoard.put("I5", new int[]{1});
+		expectedBoard.put("I6", new int[]{8});
+		
+		
+		expectedBoard.put("G7", new int[]{1,2,8});
+		expectedBoard.put("G8", new int[]{7});
+		expectedBoard.put("G9", new int[]{4});
+		
+		expectedBoard.put("H7", new int[]{1,2,8});
+		expectedBoard.put("H8", new int[]{3});
+		expectedBoard.put("H9", new int[]{6});
+		
+		expectedBoard.put("I7", new int[]{2});
+		expectedBoard.put("I8", new int[]{5});
+		expectedBoard.put("I9", new int[]{2,5,9});
+
+		
+		
+		Map<String, int[]> actualBoard = sudokuService.initializeBoard(predefinedValues);
+		sudokuService.reducePossibilitiesByCell(actualBoard);
+		sudokuService.reducePossibilitiesByColumn(actualBoard);
+		sudokuService.reducePossibilitiesByRow(actualBoard);
+		
+		sudokuService.displayBoard(actualBoard);
+		
+		assertBoardsAreEqual(expectedBoard, actualBoard);
+		
+//		for (Map.Entry<String, int[]> entry : actualBoard.entrySet()){
+//			System.out.println(entry.getKey()+":  "+Arrays.toString(entry.getValue()));
+//		}
+	
+	}
+
+	
+	@Test
+	public void reducePossibilitiesByColumnWillRemovePossibilitiesBasedOnDuplicateValuesInTheSameColumn(){
+		Map<String, int[]> expectedBoard = new Hashtable<String, int[]>();
+		
+		
+		expectedBoard.put("A1", new int[]{2,3,4,5});
+		expectedBoard.put("A2", new int[]{3,7});
+		expectedBoard.put("A3", new int[]{2,5,7});
+		
+		expectedBoard.put("B1", new int[]{6});
+		expectedBoard.put("B2", new int[]{8});
+		expectedBoard.put("B3", new int[]{2,5,7});
+
+		expectedBoard.put("C1", new int[]{1});
+		expectedBoard.put("C2", new int[]{9});
+		expectedBoard.put("C3", new int[]{2,5,7});
+
+		expectedBoard.put("A4", new int[]{2});
+		expectedBoard.put("A5", new int[]{6});
+		expectedBoard.put("A6", new int[]{1,5,9});
+
+		expectedBoard.put("B4", new int[]{5,8,9});
+		expectedBoard.put("B5", new int[]{7});
+		expectedBoard.put("B6", new int[]{1,5,9});
+		
+		expectedBoard.put("C4", new int[]{5,8,9});
+		expectedBoard.put("C5", new int[]{3,8,9});
+		expectedBoard.put("C6", new int[]{4});
+		
+		expectedBoard.put("A7", new int[]{7});
+		expectedBoard.put("A8", new int[]{6,8});
+		expectedBoard.put("A9", new int[]{1});
+		
+		expectedBoard.put("B7", new int[]{2,3,4,6,8});
+		expectedBoard.put("B8", new int[]{9});
+		expectedBoard.put("B9", new int[]{2,3});
+		
+		expectedBoard.put("C7", new int[]{5});
+		expectedBoard.put("C8", new int[]{6,8});
+		expectedBoard.put("C9", new int[]{2,3});
+
+		
+		expectedBoard.put("D1", new int[]{8});
+		expectedBoard.put("D2", new int[]{2});
+		expectedBoard.put("D3", new int[]{1,6,7});
+		
+		expectedBoard.put("E1", new int[]{3,9});
+		expectedBoard.put("E2", new int[]{1,3,6,7});
+		expectedBoard.put("E3", new int[]{4});
+		
+		expectedBoard.put("F1", new int[]{3,9});
+		expectedBoard.put("F2", new int[]{5});
+		expectedBoard.put("F3", new int[]{1,6,7});
+		
+		
+		
+		expectedBoard.put("D4", new int[]{1});
+		expectedBoard.put("D5", new int[]{4,8,9});
+		expectedBoard.put("D6", new int[]{5,7,9});
+		
+		expectedBoard.put("E4", new int[]{6});
+		expectedBoard.put("E5", new int[]{4,8,9});
+		expectedBoard.put("E6", new int[]{2});
+		
+		expectedBoard.put("F4", new int[]{4,5,7,8,9});
+		expectedBoard.put("F5", new int[]{4,8,9});
+		expectedBoard.put("F6", new int[]{3});
+		
+		
+		expectedBoard.put("D7", new int[]{1,3,6});
+		expectedBoard.put("D8", new int[]{4});
+		expectedBoard.put("D9", new int[]{3,5,7});
+		
+		expectedBoard.put("E7", new int[]{9});
+		expectedBoard.put("E8", new int[]{1,5,6});
+		expectedBoard.put("E9", new int[]{3,5,7});
+		
+		expectedBoard.put("F7", new int[]{1,3,6});
+		expectedBoard.put("F8", new int[]{2});
+		expectedBoard.put("F9", new int[]{8});
+		
+		
+		
+		expectedBoard.put("G1", new int[]{2,5});
+		expectedBoard.put("G2", new int[]{1,6});
+		expectedBoard.put("G3", new int[]{9});
+		
+		expectedBoard.put("H1", new int[]{2,5});
+		expectedBoard.put("H2", new int[]{4});
+		expectedBoard.put("H3", new int[]{1,2,5,6,8});
+
+		expectedBoard.put("I1", new int[]{7});
+		expectedBoard.put("I2", new int[]{1,6});
+		expectedBoard.put("I3", new int[]{3});
+		
+		
+		
+		expectedBoard.put("G4", new int[]{3});
+		expectedBoard.put("G5", new int[]{2,4,9});
+		expectedBoard.put("G6", new int[]{6,7,9});
+		
+		expectedBoard.put("H4", new int[]{4,7,9});
+		expectedBoard.put("H5", new int[]{5});
+		expectedBoard.put("H6", new int[]{6,7,9});
+		
+		expectedBoard.put("I4", new int[]{4,7,9});
+		expectedBoard.put("I5", new int[]{1});
+		expectedBoard.put("I6", new int[]{8});
+		
+		
+		expectedBoard.put("G7", new int[]{1,2,8});
+		expectedBoard.put("G8", new int[]{7});
+		expectedBoard.put("G9", new int[]{4});
+		
+		expectedBoard.put("H7", new int[]{1,2,8});
+		expectedBoard.put("H8", new int[]{3});
+		expectedBoard.put("H9", new int[]{6});
+		
+		expectedBoard.put("I7", new int[]{1,2,8});
+		expectedBoard.put("I8", new int[]{1,5,8});
+		expectedBoard.put("I9", new int[]{2,5,9});
+
+		
+		
+		Map<String, int[]> actualBoard = sudokuService.initializeBoard(predefinedValues);
+		sudokuService.reducePossibilitiesByCell(actualBoard);
+		sudokuService.reducePossibilitiesByColumn(actualBoard);
+		
+		assertBoardsAreEqual(expectedBoard, actualBoard);
+		
+
+	
+	}
+	
 	
 	@Test
 	public void optimizeBoardWithValidPossibilitiesWillReturnBoardWithValidPossibilitiesOnly(){
@@ -259,7 +534,7 @@ public class SudokuServiceTest{
 		int[] numericCoordinates = {1,2,3,4,5,6,7,8,9};
 		for(String alphaCoordinate : alphaCoordinates){
 			for(int numericCoordinate : numericCoordinates){
-				assertArrayEquals(expectedBoard.get(alphaCoordinate+numericCoordinate),actualBoard.get(alphaCoordinate+numericCoordinate));
+				assertArrayEquals("Asserting "+alphaCoordinate+numericCoordinate, expectedBoard.get(alphaCoordinate+numericCoordinate),actualBoard.get(alphaCoordinate+numericCoordinate));
 			}
 		}
 	}

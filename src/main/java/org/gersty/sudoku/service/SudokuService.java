@@ -149,4 +149,63 @@ public class SudokuService{
 		}
 		return returnList;
 	}
+
+	public void reducePossibilitiesByColumn(Map<String, int[]> actualBoard) {
+		
+		List<Integer> givenValues = new ArrayList<Integer>();
+		Map<String, List<Integer>> possibilitySet = new Hashtable<String, List<Integer>>();
+		for(int numericCoordinate : numericCoordinates){
+			for(String alphaCoordinate : alphaCoordinates){
+				int[] listOfValues = actualBoard.get(alphaCoordinate+numericCoordinate);
+				
+				if(listOfValues.length==1){
+					givenValues.add(listOfValues[0]);
+				}
+				else{
+					possibilitySet.put(alphaCoordinate+numericCoordinate, convertIntArrayToList(listOfValues));
+				}
+					
+			}
+			for (Map.Entry<String, List<Integer>> entry : possibilitySet.entrySet()){
+				for(int value : givenValues){
+					List<Integer> reducedPossibilitySet = entry.getValue();
+					if (reducedPossibilitySet.contains(value)){
+						reducedPossibilitySet.remove(reducedPossibilitySet.indexOf(value));
+						actualBoard.put(entry.getKey(), convertToArray(reducedPossibilitySet));
+					}
+				}
+			}
+			possibilitySet.clear();
+			givenValues.clear();
+		}
+	}
+
+	public void reducePossibilitiesByRow(Map<String, int[]> actualBoard) {
+		List<Integer> givenValues = new ArrayList<Integer>();
+		Map<String, List<Integer>> possibilitySet = new Hashtable<String, List<Integer>>();
+		for(String alphaCoordinate : alphaCoordinates){
+			for(int numericCoordinate : numericCoordinates){
+				int[] listOfValues = actualBoard.get(alphaCoordinate+numericCoordinate);
+				
+				if(listOfValues.length==1){
+					givenValues.add(listOfValues[0]);
+				}
+				else{
+					possibilitySet.put(alphaCoordinate+numericCoordinate, convertIntArrayToList(listOfValues));
+				}
+					
+			}
+			for (Map.Entry<String, List<Integer>> entry : possibilitySet.entrySet()){
+				for(int value : givenValues){
+					List<Integer> reducedPossibilitySet = entry.getValue();
+					if (reducedPossibilitySet.contains(value)){
+						reducedPossibilitySet.remove(reducedPossibilitySet.indexOf(value));
+						actualBoard.put(entry.getKey(), convertToArray(reducedPossibilitySet));
+					}
+				}
+			}
+			possibilitySet.clear();
+			givenValues.clear();
+		}
+	}
 }
